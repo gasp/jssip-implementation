@@ -23,40 +23,37 @@ gulp.task('install', ['bower'], function() {
     ];
 
   return gulp.src(files)
-    .pipe(gulp.dest('./dist/js/'));
+    .pipe(gulp.dest('./build/js/'));
 });
 
 gulp.task('serve', ['default', 'watch'], function () {
   connect.server({
       port: process.env.PORT || 8080,
-      root: './dist',
+      root: ['./build', './src'],
       livereload: true
     });
 });
 
 gulp.task('html', function () {
-  console.log("html updated");
-  gulp.src('./src/**.html')
-    .pipe(gulp.dest('./dist/'))
-    .pipe(connect.reload());
+  connect.reload();
 });
 
 gulp.task('less', function () {
   gulp.src(['./src/less/app.less', './src/less/bootstrap.less'])
     .pipe(less()) // should use paths: [ path.join(__dirname, 'src', 'includes') ]
-    .pipe(gulp.dest('./dist/css'))
+    .pipe(gulp.dest('./build/css'))
     .pipe(connect.reload());
 });
 
 gulp.task('js', function () {
   gulp.src('./src/js/*.js')
-    .pipe(gulp.dest('./dist/js'))
+    .pipe(gulp.dest('./build/js'))
     .pipe(connect.reload());
 });
 
 gulp.task('images', function () {
   gulp.src('./src/images/*')
-    .pipe(gulp.dest('./dist/images'))
+    .pipe(gulp.dest('./build/images'))
     .pipe(connect.reload());
 });
 
