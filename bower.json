@@ -1,5 +1,5 @@
 {
-  "name": "sip client",
+  "name": "sip web client",
   "version": "0.0.1",
   "authors": [
     "gaspard <gaspard@gmail.com>"
@@ -13,6 +13,8 @@
     "tests"
   ],
   "dependencies": {
-    "jssip": "~0.6.21"
+    "jssip": "~0.6.21",
+    "bootstrap": "3.x",
+    "jquery": "2.x"
   }
 }

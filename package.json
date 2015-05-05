@@ -1,0 +1,26 @@
+{
+  "name": "web sip client",
+  "version": "0.0.1",
+  "description": "Web sip client",
+  "main": "dist/index.html",
+  "private": true,
+  "scripts": {
+    "start": "gulp serve",
+    "test": "gulp test"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "gulp-util": "~2.2.12",
+    "gulp": "latest",
+    "gulp-bower": "0.0.6",
+    "gulp-uglify": "~0.1.0",
+    "gulp-watch": "~0.5.0",
+    "gulp-concat": "~2.1.7",
+    "gulp-less": "latest",
+    "gulp-connect": "2.2.0",
+    "gulp-jasmine": "1.0.x"
+  },
+  "author": "gasp",
+  "license": "MIT"
+}
