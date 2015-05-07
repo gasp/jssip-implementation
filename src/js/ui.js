@@ -87,9 +87,9 @@ var ui = {
     var compiled_panel = _.template(template_panel)(content);
     $('.ui-main').prepend(compiled_panel);
 
+    // dialog display
     var $dialog = $('.ui-main > div#' + content.slug + ' .ui-dialog');
     $dialog.empty();
-    // messages display
     var template_message = $('#template-ui-message').html();
     for (var i = 0; i < messages.db.length; i++) {
       if(messages.db[i].remote_uri === uri) {
@@ -107,5 +107,27 @@ var ui = {
       }
     }
 
+    // dialog send
+    var $form = $('.ui-main > div#' + content.slug + ' form');
+    $form.on('submit', function (ev) {
+      var dest = $(this).data('dest');
+      var text = $('input', $form).val();
+
+      phone.sendMessage(dest, text, {
+        eventHandlers: {
+          succeed: function() {
+            $('input', $form).val('').parent().removeClass('has-error');
+            console.log('message success');
+          },
+          failed: function() {
+            $('input', $form).parent().removeClass('has-error');
+            console.log('message failed');
+          }
+        }
+      });
+      console.log('plop');
+      ev.preventDefault;
+      return false;
+    });
   }
 };
