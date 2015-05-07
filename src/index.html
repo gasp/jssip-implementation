@@ -16,34 +16,128 @@
   <body>
 
     <section>
+
+    </section>
+
+    <section class="state state-offline">
       <div class="container">
-
         <div class="row">
-
           <div class="col-sm-12">
-            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
-          </div>
+            <h1>offline</h1>
+            <div class="">
+              <button type="button" class="btn btn-primary btn-lg" name="connect">connect</button>
+            </div>
         </div><!-- /.row -->
-
       </div><!-- /.container -->
+    </section>
+
+    <section class="state state-online">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <h1>online</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2 text-right">
+            <!-- this should be done as a popover-->
+            <button type="button" class="btn btn-primary ui-new" name="new">new +</button>
+            <hr>
+            <ul class="ui-conversations nav nav-pills nav-stacked">
+              <li>empty</li>
+            </ul>
+            <hr>
+            <button type="button" class="btn btn-default" name="answer">answer</button>
+            <button type="button" name="button" class="btn btn-danger">hangup</button>
+          </div>
+          <div class="col-sm-10">
+            <div class="ui-main">
+              <div>empty</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="debug">
+      <div class="container">
+        <hr>
+        <p>
+          this might not work... seriously ?
+        </p>
+        <pre id="debug"></pre>
+        <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+    </div>
+
     </section>
 
 
     <footer class="footer">
       <div class="container">
+        <hr>
         <p>Created with&nbsp;&nbsp;❤&nbsp;&nbsp;</p>
         <p>
           <a href="#">Back to top</a>
         </p>
       </div>
     </footer>
+    <script type="text/html" id="template-ui-message">
+      <li class="<%= direction %>"><b><%= author %></b>: <%= message %></li>
+    </script>
+    <script type="text/html" id="template-ui-contact">
+      <li data-toggle="tooltip"><a data-uid="<%= slug %>" title="<%= uri %>">
+        <%= name %> <span class="badge"><%= n %></span></a></li>
+    </script>
+    <script type="text/html" id="template-ui-new">
+      <div class="well">
+        <h2>new</h2>
+        <form>
+          <div class="form-group">
+            <label for="dest">dest</label>
+            <input type="text" class="form-control" id="dest" placeholder="sip:user@domain">
+          </div>
+          <div class="checkbox">
+            <label>
+              <input type="checkbox"> Check me out
+            </label>
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+    </script>
+    <script type="text/html" id="template-ui-panel">
+      <div class="ui-panel conversation well" id="<%= slug %>">
+        <h2>
+          <span class="c-nickname"><%= remote_display_name %></span>
+          <small>&lt;<span class="c-uri"><%= remote_uri %></span>&gt;</small>
+        </h2>
 
+        <form class="form-inline chat" data-dest="<%= remote_uri %>">
+          <div class="form-group clearfix">
+            <ul class="form-control-static">
+              <li><b>Bob:</b> Hello</li>
+              <li><b>Me:</b> 'sup ?'</li>
+            </ul>
+          </div>
+          <div class="form-group" style="width:100%">
+            <div class="input-group" style="width:100%">
+              <input type="text" class="form-control" placeholder="...">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-primary">Send</button>
+              </span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </script>
     <script src="js/jquery.js"></script>
     <script src="js/underscore.js"></script>
     <script src="js/bootstrap.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="js/ie10-viewport-bug-workaround.js"></script>
     <script src="js/jssip.js" charset="utf-8"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/phone.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>
