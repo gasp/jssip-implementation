@@ -15,6 +15,7 @@
   "dependencies": {
     "jssip": "~0.6.26",
     "bootstrap": "3.x",
-    "jquery": "2.x"
+    "jquery": "2.x",
+    "underscore": "latest"
   }
 }

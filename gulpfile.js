@@ -18,6 +18,7 @@ gulp.task('install', ['bower'], function() {
   var bc = 'bower_components',
     files = [
       bc + '/jquery/dist/jquery.js',
+      bc + '/underscore/underscore.js',
       bc + '/bootstrap/dist/js/bootstrap.js',
       bc + '/jssip/dist/jssip.js'
     ];
