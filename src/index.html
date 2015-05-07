@@ -82,7 +82,7 @@
       </div>
     </footer>
     <script type="text/html" id="template-ui-message">
-      <li class="<%= direction %>"><b><%= author %></b>: <%= message %></li>
+      <li class="<%= direction %>"><b><%= author %></b>: <%= content %></li>
     </script>
     <script type="text/html" id="template-ui-contact">
       <li data-toggle="tooltip"><a data-uid="<%= slug %>" title="<%= uri %>">
@@ -114,7 +114,7 @@
 
         <form class="form-inline chat" data-dest="<%= remote_uri %>">
           <div class="form-group clearfix">
-            <ul class="form-control-static">
+            <ul class="ui-dialog form-control-static">
               <li><b>Bob:</b> Hello</li>
               <li><b>Me:</b> 'sup ?'</li>
             </ul>

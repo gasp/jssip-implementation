@@ -40,12 +40,11 @@ var ui = {
   conversations: function () {
     var that = this;
     var $c = $('.ui-conversations').empty();
-    var template = $("#template-ui-contact").html();
+    var template = $('#template-ui-contact').html();
     for (var i = 0; i < conversations.db.length; i++) {
       var c = conversations.db[i];
       var name = 'unknown';
       for (var j = messages.db.length - 1; j >= 0; j--) {
-        console.log(messages.db[j].remote_uri, c.uri);
         if (messages.db[j].remote_uri === c.uri) {
           name = messages.db[j].remote_display_name;
           break;
@@ -57,8 +56,6 @@ var ui = {
         n: c.n,
         name: name
       };
-      console.log(content)
-      console.log(template)
       var $li = $(_.template(template)(content)).on('click', function () {
         that.show(c.uri);
       });
@@ -86,16 +83,27 @@ var ui = {
       return;
     }
 
+    var template_panel = $('#template-ui-panel').html();
+    var compiled_panel = _.template(template_panel)(content);
+    $('.ui-main').prepend(compiled_panel);
 
-    var template = $("#template-ui-panel").html();
-    var compiled = _.template(template)(content);
-    $(".ui-main").prepend(compiled);
-
+    var $dialog = $('.ui-main > div#' + content.slug + ' .ui-dialog');
+    $dialog.empty();
     // messages display
+    var template_message = $('#template-ui-message').html();
     for (var i = 0; i < messages.db.length; i++) {
       if(messages.db[i].remote_uri === uri) {
-        var m = messages.db[i];
-        var $m = $('<li class="' + m.direction + '">' + m.content + '</li>');
+        var author = messages.db[i].local_display_name;
+        if(messages.db[i].direction === 'incoming') {
+          author = messages.db[i].remote_display_name;
+        }
+        var message = {
+          direction: messages.db[i].direction,
+          author: author,
+          content: messages.db[i].content
+        };
+        var compiled_message = _.template(template_message)(message);
+        $dialog.append(compiled_message);
       }
     }
 
