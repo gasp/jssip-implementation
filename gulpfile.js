@@ -35,7 +35,10 @@ gulp.task('serve', ['default', 'watch'], function () {
 });
 
 gulp.task('html', function () {
-  connect.reload();
+  // there is no html build
+  //   .pipe(gulp.dest('./build/'))
+  gulp.src('./src/*.html')
+    .pipe(connect.reload());
 });
 
 gulp.task('less', function () {
@@ -46,9 +49,10 @@ gulp.task('less', function () {
 });
 
 gulp.task('js', function () {
-  gulp.src('./src/js/*.js')
-    .pipe(gulp.dest('./build/js'))
-    .pipe(connect.reload());
+  // there is no js building, nor browserify
+  //   .pipe(gulp.dest('./build/js'))
+   gulp.src('./src/js/*.js')
+     .pipe(connect.reload());
 });
 
 gulp.task('images', function () {
