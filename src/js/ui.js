@@ -10,32 +10,16 @@ var ui = {
     this.refresh();
   },
   refresh: function () {
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip();
   },
   connect: function() {
     phone.start();
     that.state('online');
   },
-  text: function() {
-    var text = 'Hello Bob!';
-    phone.sendMessage('sip:103@52.17.80.211', text, {
-      eventHandlers: {
-        succeed: function() {
-          console.log('message success');
-        },
-        failed: function() {
-          console.log('message failed');
-        }
-      }
-    });
-  },
   state: function (status) {
     $('section.state').hide();
     console.log('section.state-' + status)
     $('section.state-' + status).show();
-  },
-  new: function () {
-
   },
   conversations: function () {
     var that = this;
@@ -65,7 +49,6 @@ var ui = {
   },
   // show a specific conversation
   show: function (uri) {
-    console.log(conversations.find(uri));
     // hide all
     $('.ui-main > div').hide();
 
@@ -87,8 +70,38 @@ var ui = {
     var compiled_panel = _.template(template_panel)(content);
     $('.ui-main').prepend(compiled_panel);
 
+    // dialog send
+    var $form = $('.ui-main > div#' + content.slug + ' form');
+    $form.on('submit', function (ev) {
+      var dest = $(this).data('dest');
+      var text = $('input', $form).val();
+
+      phone.sendMessage(dest, text, {
+        eventHandlers: {
+          succeeded: function() {
+            $('input', $form).val('').parent().removeClass('has-error');
+            console.log('message success');
+            ui.dialog(content.remote_uri);
+          },
+          failed: function() {
+            $('input', $form).parent().removeClass('has-error');
+            console.log('message failed');
+          }
+        }
+      });
+      console.log('plop');
+      ev.preventDefault;
+      return false;
+    });
+
     // dialog display
-    var $dialog = $('.ui-main > div#' + content.slug + ' .ui-dialog');
+    ui.dialog(content.remote_uri);
+  },
+  // refreshes dialog in the currently opened pane
+  dialog: function (uri) {
+    var slug = utils.slugify(uri);
+    var $dialog = $('.ui-main > div#' + slug + ' .ui-dialog');
+
     $dialog.empty();
     var template_message = $('#template-ui-message').html();
     for (var i = 0; i < messages.db.length; i++) {
@@ -106,28 +119,5 @@ var ui = {
         $dialog.append(compiled_message);
       }
     }
-
-    // dialog send
-    var $form = $('.ui-main > div#' + content.slug + ' form');
-    $form.on('submit', function (ev) {
-      var dest = $(this).data('dest');
-      var text = $('input', $form).val();
-
-      phone.sendMessage(dest, text, {
-        eventHandlers: {
-          succeed: function() {
-            $('input', $form).val('').parent().removeClass('has-error');
-            console.log('message success');
-          },
-          failed: function() {
-            $('input', $form).parent().removeClass('has-error');
-            console.log('message failed');
-          }
-        }
-      });
-      console.log('plop');
-      ev.preventDefault;
-      return false;
-    });
   }
 };

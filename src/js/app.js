@@ -19,7 +19,7 @@ messages.add = function (m) {
     uid: uid,
     content: m.content,
     direction: m.direction, // 'incoming'
-    local_display_name: m.local_identity.display_name || 'unknown',
+    local_display_name: m.local_identity.display_name || 'me',
     local_uri: m.local_identity.uri.toString(),
     remote_display_name: m.remote_identity.display_name || 'unknown',
     remote_uri: uri,
