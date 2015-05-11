@@ -57,7 +57,9 @@ messages.save = function () {
 };
 
 messages.load = function () {
-  messages.db = JSON.parse(localStorage.getItem('messages'));
+  if(localStorage.getItem('messages')) {
+    messages.db = JSON.parse(localStorage.getItem('messages'));
+  }
 };
 
 var debug = function(message, e) {
@@ -121,11 +123,10 @@ var utils = {
 ui.init();
 phone.start();
 messages.load();
-if(messages.db.length > 0) {
+if(messages.db && messages.db.length > 0) {
   conversations.rebuild();
   ui.conversations();
+  setTimeout(function () {
+    messages.list();
+  }, 500);
 }
-
-setTimeout(function () {
-  messages.list();
-}, 500);
