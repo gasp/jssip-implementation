@@ -27,7 +27,7 @@ messages.add = function (m) {
   };
   messages.db.push(clean);
 
-  var c = conversations.find(uid);
+  var c = conversations.find(clean.remote_uri);
   if(c === false) c = conversations.add(uri) -1;
   conversations.db[c].n++;
 
