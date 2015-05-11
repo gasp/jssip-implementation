@@ -23,6 +23,7 @@ phone.on('connected', function(e){
 phone.on('newRTCSession', function(e){
   debug('newRTCSession');
   console.log(e);
+  rtc.add(e);
 });
 
 phone.on('disconnected', function(e){
@@ -43,8 +44,4 @@ phone.on('unregistered', function(e){
 });
 phone.on('registrationFailed', function(e){
   debug('registrationFailed');
-});
-
-phone.on('newRTCSession', function(e){
-  debug('newRTCSession, dafuk ?');
 });

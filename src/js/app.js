@@ -98,6 +98,25 @@ conversations.find = function (uri) {
   return false;
 };
 
+var rtc = {};
+
+rtc.db = [];
+
+rtc.add = function (e) {
+  var request = e.request;
+  var call = e.session;
+  var uri = call.remote_identity.uri.toString();
+  console.log(request, call, uri)
+
+  // create a conversation
+  call.content = call.content || 'calling...';
+  messages.add(call);
+  // upgrade dialogs
+  ui.dialog(uri);
+
+  // fixme add session options
+  ui.call(uri, {});
+};
 var utils = {
   slugify: function (text) {
     return text.toString().toLowerCase()

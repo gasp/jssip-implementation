@@ -45,16 +45,14 @@ var ui = {
       };
       var $li = $(_.template(template)(content)).on('click', function () {
         that.show(c.uri);
+        // clear "n" and refresh
       });
       $c.append($li);
     }
     this.refresh();
   },
-  // show a specific conversation
-  show: function (uri) {
-    // hide all
-    $('.ui-main > div').hide();
-
+  // create a conversation
+  create: function (uri) {
     var content = {};
     for (var i = 0; i < messages.db.length; i++) {
       if (messages.db[i].remote_uri === uri) {
@@ -64,16 +62,11 @@ var ui = {
     }
     content.slug = utils.slugify(content.remote_uri);
 
-    if($('#' + content.slug, '.ui-main').length) {
-      $('.ui-main > div#' + content.slug).show();
-      return;
-    }
-
     var template_panel = $('#template-ui-panel').html();
     var compiled_panel = _.template(template_panel)(content);
     $('.ui-main').prepend(compiled_panel);
 
-    // dialog send
+    // dialog message post
     var $form = $('.ui-main > div#' + content.slug + ' form');
     $form.on('submit', function (ev) {
       var dest = $(this).data('dest');
@@ -92,7 +85,6 @@ var ui = {
           }
         }
       });
-      console.log('plop');
       ev.preventDefault;
       return false;
     });
@@ -100,7 +92,21 @@ var ui = {
     // dialog display
     ui.dialog(content.remote_uri);
   },
-  // refreshes dialog in the currently opened pane
+  // show a specific conversation
+  show: function (uri) {
+    var slug = utils.slugify(uri);
+    // hide all
+    $('.ui-main > div').hide();
+
+    if($('#' + slug, '.ui-main').length) {
+      $('.ui-main > div#' + slug).show();
+      ui.dialog(uri);
+    }
+    else {
+      this.create(uri);
+    }
+  },
+  // refresh dialog in the currently opened pane
   dialog: function (uri) {
     var slug = utils.slugify(uri);
     var $dialog = $('.ui-main > div#' + slug + ' .ui-dialog');
@@ -122,5 +128,33 @@ var ui = {
         $dialog.append(compiled_message);
       }
     }
+  },
+  // call elements
+  call: function (uri, session) {
+    var slug = utils.slugify(uri);
+    if(!$('#' + slug, '.ui-main').length) {
+      this.create(uri);
+      $('#' + slug, '.ui-main').hide();
+    }
+
+    var $dialog = $('.ui-main > div#' + slug + ' .ui-rtc-container');
+    var template_rtc = $('#template-ui-rtc').html();
+    $dialog.append(_.template(template_rtc)({}));
+  },
+  // call status
+  callstatus: function (uri, status) {
+    var slug = utils.slugify(uri);
+
+    var $c = $('.ui-conversations a[data-uid=' + slug + ']');
+    $c.addClass('status');
+    if(!status.test(/failed|terminated$/)) {
+      $('.ui-incall', $c).show();
+    }
+    debug('rtc ' + uri + ': ' + status);
+  },
+  sound: function (source) {
+    var soundPlayer = $('#sound-player');
+    soundPlayer.prop('src', 'sounds/' + source + '.ogg');
+    soundPlayer.play();
   }
 };

@@ -22,7 +22,7 @@ gulp.task('install', ['bower'], function() {
       bc + '/bootstrap/dist/js/bootstrap.js',
       bc + '/jssip/dist/jssip.js'
     ];
-
+  gulp.src(bc + "/bootstrap/fonts/**").pipe(gulp.dest("./build/fonts"));
   return gulp.src(files)
     .pipe(gulp.dest('./build/js/'));
 });
