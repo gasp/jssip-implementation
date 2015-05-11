@@ -27,9 +27,12 @@ var ui = {
     var template = $('#template-ui-contact').html();
     for (var i = 0; i < conversations.db.length; i++) {
       var c = conversations.db[i];
+      // if there is a display_name different than 'unknown'
+      // use it
       var name = 'unknown';
       for (var j = messages.db.length - 1; j >= 0; j--) {
-        if (messages.db[j].remote_uri === c.uri) {
+        if (messages.db[j].remote_uri === c.uri
+          && messages.db[j].remote_display_name !== name) {
           name = messages.db[j].remote_display_name;
           break;
         }
