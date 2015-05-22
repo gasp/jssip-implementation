@@ -139,7 +139,8 @@ var ui = {
 
     var $dialog = $('.ui-main > div#' + slug + ' .ui-rtc-container');
     var template_rtc = $('#template-ui-rtc').html();
-    $dialog.append(_.template(template_rtc)({}));
+    var identifyers = {uri: uri, request_uid: request_uid, rtc_uid: rtc_uid};
+    $dialog.append(_.template(template_rtc)(identifyers));
   },
   // call status
   callstatus: function (uri, status) {

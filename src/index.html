@@ -150,13 +150,10 @@
           </div>
         </div>
         <div class="controls">
-          <button type="button" class="btn btn-default" name="call-audio-make">make audio call</button>
-          <button type="button" class="btn btn-default" name="call-video-make">make video call</button>
-          <button type="button" class="btn btn-default" name="call-audio-accept">accept audio call</button>
-          <button type="button" class="btn btn-default" name="call-video-accept">accept video call</button>
-          <button type="button" class="btn btn-default" name="call-audio-reject">reject audio call</button>
-          <button type="button" class="btn btn-default" name="call-video-reject">reject video call</button>
-
+          <button type="button" data-uri="<%= uri %>" class="btn btn-default" name="call-make">make a call</button>
+          <button type="button" data-uri="<%= uri %>" data-request="<%= request_uid %>" data-rtc="<%= rtc_uid %>" class="btn btn-default" name="call-accept">accept a call (pick up)</button>
+          <button type="button" data-uri="<%= uri %>" class="btn btn-default" name="call-reject">reject a call</button>
+          <button type="button" data-uri="<%= uri %>" class="btn btn-default" name="call-terminate">terminate a call (hang up)</button>
         </div>
       </div>
     </script>

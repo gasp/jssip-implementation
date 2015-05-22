@@ -114,8 +114,16 @@ rtc.add = function (e) {
   // upgrade dialogs
   ui.dialog(uri);
 
+  // create an uinqid for request and store it
+  request.uid = utils.yaddahyaddah(32);
+  requests.db.push(request);
+
+  // create an uinqid for rtc session and store it
+  call.uid = utils.yaddahyaddah(32);
+  rtc.db.push(call);
+
   // fixme add session options
-  ui.call(uri, {});
+  ui.call(uri, request.uid, call.uid);
 };
 var utils = {
   slugify: function (text) {
