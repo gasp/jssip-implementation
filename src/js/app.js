@@ -127,6 +127,7 @@ var utils = {
       .replace(/-+$/, '');            // Trim - from end of text
   },
   yaddahyaddah: function (len, charSet) {
+    len = len || 16;
     charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var randomString = '';
     for (var i = 0; i < len; i++) {
@@ -136,7 +137,6 @@ var utils = {
     return randomString;
   }
 };
-
 
 // fire !
 ui.init();
