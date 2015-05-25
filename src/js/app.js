@@ -83,15 +83,6 @@ messages.load = function () {
   }
 };
 
-var debug = function(message, e) {
-  if(typeof(e)==='undefined') {
-    e = null;
-  }
-  var $l = document.getElementById('debug');
-  $l.innerHTML = $l.innerHTML + message +  ' \n';
-  console.log(message, e);
-};
-
 // conversations are threads
 var conversations = {};
 conversations.db = [];
@@ -230,6 +221,16 @@ var utils = {
     }
     return randomString;
   }
+};
+
+
+var debug = function(message, e) {
+  if(typeof(e)==='undefined') {
+    e = null;
+  }
+  var $l = document.getElementById('debug');
+  $l.innerHTML = $l.innerHTML + message +  ' \n';
+  console.log(message, e);
 };
 
 // fire !
