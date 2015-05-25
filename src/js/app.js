@@ -1,5 +1,26 @@
 'use strict';
 
+var config = {};
+
+// get free ice
+// https://github.com/gasp/freeice
+config.ice = {
+  "iceServers": [
+    {"urls": ["stun:stun.l.google.com:19302"]}
+  ],
+  "gatheringTimeout": 2000
+};
+
+// add an "ideal" resolution
+config.constraints = {
+  audio: true,
+  video: {
+    mandatory: {
+      maxHeight: 180,
+      maxWidth: 320
+    }
+  }
+};
 
 // messages are uniquely identified blips
 var messages = {};
@@ -98,9 +119,29 @@ conversations.find = function (uri) {
   return false;
 };
 
-var rtc = {};
+var requests = {};
+requests.db = [];
+// get requests by requests.db[i].uid
+// @param: (string) yaddahyaddah
+// @return: (JsSIP IncomingRequest)
+requests.get = function (uid) {
+  for (var i = 0; i < this.db.length; i++) {
+    if (this.db[i].uid === uid) return this.db[i];
+  }
+  return false;
+};
 
+var rtc = {};
 rtc.db = [];
+// get RTCSession by rtc.db[i].uid
+// @param: (string) yaddahyaddah
+// @return: (JsSIP RTCSession)
+rtc.get = function (uid) {
+  for (var i = 0; i < this.db.length; i++) {
+    if (this.db[i].uid === uid) return this.db[i];
+  }
+  return false;
+};
 
 rtc.add = function (e) {
   var request = e.request;
@@ -124,6 +165,51 @@ rtc.add = function (e) {
 
   // fixme add session options
   ui.call(uri, request.uid, call.uid);
+};
+
+rtc.start = function (request_uid, rtc_uid) {
+  var request = requests.get(request_uid);
+  var call = rtc.get(rtc_uid);
+
+  console.log('direction', call.direction);
+  console.log('isInProgress', call.isInProgress());
+  console.log('isEstablished', call.isEstablished());
+  console.log('isEnded', call.isEnded());
+  console.log('isReadyToReOffer', call.isReadyToReOffer());
+  console.log('answer exists', typeof call.answer);
+
+  if (call.direction === 'incoming') {
+    status = "incoming";
+    if (request.getHeader('X-Can-Renegotiate') === 'false') {
+      call.data.remoteCanRenegotiateRTC = false;
+    }
+    else {
+      call.data.remoteCanRenegotiateRTC = true;
+    }
+  } else {
+    ui.callstatus(uri, 'trying');
+  }
+
+  call.answer({
+    // config is a global variable
+    pcConfig: config.ice,
+    // TMP:
+    mediaConstraints: config.constraints,
+    extraHeaders: [
+      'X-Can-Renegotiate: ' + JsSIP.rtcninja.canRenegotiate.toString()
+    ],
+    rtcOfferConstraints: {
+      offerToReceiveAudio: 1,
+      offerToReceiveVideo: 1
+    },
+  });
+
+  call.on('addstream', function(e) {
+    console.log('Tryit: addstream()');
+    remoteStream = e.stream;
+    remoteView = JsSIP.rtcninja.attachMediaStream(remoteView, remoteStream);
+  });
+
 };
 var utils = {
   slugify: function (text) {

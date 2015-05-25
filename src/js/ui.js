@@ -130,7 +130,7 @@ var ui = {
     }
   },
   // call elements
-  call: function (uri, session) {
+  call: function (uri, request_uid, rtc_uid) {
     var slug = utils.slugify(uri);
     if(!$('#' + slug, '.ui-main').length) {
       this.create(uri);
@@ -141,6 +141,21 @@ var ui = {
     var template_rtc = $('#template-ui-rtc').html();
     var identifyers = {uri: uri, request_uid: request_uid, rtc_uid: rtc_uid};
     $dialog.append(_.template(template_rtc)(identifyers));
+
+    // handle
+    $('.ui-rtc .btn', $dialog).on('click', function () {
+      var uri = $(this).data('uri');
+      switch ($(this).attr('name')) {
+        case 'call-accept':
+          var request_uid = $(this).data('request');
+          var rtc_uid = $(this).data('rtc');
+          console.log(this, uri, request_uid, rtc_uid);
+          rtc.start(request_uid, rtc_uid);
+          break;
+        default:
+
+      }
+    });
   },
   // call status
   callstatus: function (uri, status) {
