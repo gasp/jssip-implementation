@@ -138,7 +138,7 @@
       </div>
     </script>
     <script type="text/html" id="template-ui-rtc">
-      <div class="ui-rtc">
+      <div class="ui-rtc" id="call_<%= rtc_uid %>">
         <div class="screens row">
           <div class="local col-sm-6">
             <video autoplay muted="true" poster="images/green.png">
@@ -150,10 +150,10 @@
           </div>
         </div>
         <div class="controls">
-          <button type="button" data-uri="<%= uri %>" class="btn btn-default" name="call-make">make a call</button>
+          <button type="button" data-uri="<%= uri %>" class="btn btn-default" name="call-make" disabled="disabled">make a call</button>
           <button type="button" data-uri="<%= uri %>" data-request="<%= request_uid %>" data-rtc="<%= rtc_uid %>" class="btn btn-default" name="call-accept">accept a call (pick up)</button>
-          <button type="button" data-uri="<%= uri %>" class="btn btn-default" name="call-reject">reject a call</button>
-          <button type="button" data-uri="<%= uri %>" class="btn btn-default" name="call-terminate">terminate a call (hang up)</button>
+          <button type="button" data-uri="<%= uri %>" class="btn btn-default" name="call-reject" disabled="disabled">reject a call</button>
+          <button type="button" data-uri="<%= uri %>" class="btn btn-default" name="call-terminate" disabled="disabled">terminate a call (hang up)</button>
         </div>
       </div>
     </script>

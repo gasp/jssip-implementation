@@ -14,7 +14,7 @@ var ui = {
   },
   connect: function() {
     phone.start();
-    that.state('online');
+    this.state('online');
   },
   state: function (status) {
     $('section.state').hide();
@@ -153,20 +153,35 @@ var ui = {
           rtc.start(request_uid, rtc_uid);
           break;
         default:
-
       }
     });
   },
-  // call status
-  callstatus: function (uri, status) {
-    var slug = utils.slugify(uri);
-
-    var $c = $('.ui-conversations a[data-uid=' + slug + ']');
-    $c.addClass('status');
-    if(!status.test(/failed|terminated$/)) {
-      $('.ui-incall', $c).show();
+  // get video feeds
+  feeds: function (rtc_uid) {
+    var $dialog = $('.ui-main div#call_' + rtc_uid);
+    console.log(rtc_uid, $dialog, $('.screens .local', $dialog));
+    // return HTML DOM Objects
+    return {
+      local: $('.screens .local', $dialog)[0],
+      remote: $('.screens .remote', $dialog)[0]
     }
-    debug('rtc ' + uri + ': ' + status);
+  },
+  // call status
+  callstatus: function (rtc_uid, status) {
+    if(typeof(status) === 'undefined' || status === null) {
+      throw 'Status cannot be null or undefined';
+    }
+
+    var $dialog = $('.ui-main > div#call_' + rtc_uid);
+    $dialog.addClass('status_' + status);
+    if(!/^failed|terminated$/i.test(status)) {
+      $dialog.show();
+    }
+    if(status === 'accepted') {
+      // hang up button
+      $('[name=call-terminate]', $dialog).show();
+    }
+    debug('rtc status ' + rtc_uid + ': ' + status, this);
   },
   sound: function (source) {
     var soundPlayer = $('#sound-player');

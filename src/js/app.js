@@ -69,7 +69,6 @@ messages.list = function () {
     for(var key in this.db[i]) {
       str = str + key + ': "' + this.db[i][key] + '", '
     }
-    console.log(str);
   }
 };
 
@@ -161,6 +160,7 @@ rtc.add = function (e) {
 rtc.start = function (request_uid, rtc_uid) {
   var request = requests.get(request_uid);
   var call = rtc.get(rtc_uid);
+  var feeds = ui.feeds(rtc_uid);
 
   console.log('direction', call.direction);
   console.log('isInProgress', call.isInProgress());
@@ -168,6 +168,8 @@ rtc.start = function (request_uid, rtc_uid) {
   console.log('isEnded', call.isEnded());
   console.log('isReadyToReOffer', call.isReadyToReOffer());
   console.log('answer exists', typeof call.answer);
+  console.log('call', call);
+  console.log('feeds', feeds);
 
   if (call.direction === 'incoming') {
     status = "incoming";
@@ -178,7 +180,7 @@ rtc.start = function (request_uid, rtc_uid) {
       call.data.remoteCanRenegotiateRTC = true;
     }
   } else {
-    ui.callstatus(uri, 'trying');
+    ui.callstatus(rtc_uid, 'trying');
   }
 
   call.answer({
@@ -195,6 +197,66 @@ rtc.start = function (request_uid, rtc_uid) {
     },
   });
 
+  // Started
+  call.on('accepted',function(e){
+
+    //Attach the streams to the views if it exists.
+    if (call.connection.getLocalStreams().length > 0) {
+      var localStream = call.connection.getLocalStreams()[0];
+      console.log('local streams', call.connection.getLocalStreams());
+      console.log('connection', call.connection);
+
+
+      var selfView = JsSIP.rtcninja.attachMediaStream(document.getElementById('localVideo'), localStream);
+      //var selfView = JsSIP.rtcninja.attachMediaStream(feeds.local, localStream);
+      selfView.volume = 0;
+
+      // TMP
+      window.localStream = localStream;
+    }
+
+    if (e.originator === 'remote') {
+      if (e.response.getHeader('X-Can-Renegotiate') === 'false') {
+        call.data.remoteCanRenegotiateRTC = false;
+      }
+      else {
+        call.data.remoteCanRenegotiateRTC = true;
+      }
+    }
+
+    ui.callstatus(rtc_uid, 'accepted');
+  });
+
+  call.on('addstream', function(e) {
+    console.log('addstream', e.stream);
+    console.log(e.stream.getVideoTracks());
+    console.log(e.stream.getAudioTracks());
+    var audioEl = document.querySelector('#remoteAudioElement');
+    var audioStream = e.stream;
+    console.log(audioEl, audioStream);
+    audioEl.src = window.URL.createObjectURL(audioStream);
+    audioEl.play();
+
+    // re activate for video stream
+    // var video = document.getElementById('remoteVideo');
+    // window.remoteStream = e.stream;
+    // video.src = window.URL.createObjectURL(e.stream);
+
+
+/*
+    if(e.stream.getVideoTracks() > 0) {
+      console.log('video', e);
+      JsSIP.rtcninja.attachMediaStream(document.getElementById('remoteVideo'), e.stream);
+    }
+    else if(e.stream.getAudioTracks() > 0) {
+      console.log('audio', e);
+      JsSIP.rtcninja.attachMediaStream(document.getElementById('remoteAudio'), e.stream);
+    }
+*/
+  });
+
+};
+
   call.on('addstream', function(e) {
     console.log('Tryit: addstream()');
     remoteStream = e.stream;
@@ -202,6 +264,7 @@ rtc.start = function (request_uid, rtc_uid) {
   });
 
 };
+
 var utils = {
   slugify: function (text) {
     return text.toString().toLowerCase()
