@@ -16,7 +16,7 @@ config.constraints = {
   audio: true,
   video: {
     mandatory: {
-      maxHeight: 180,
+      maxHeight: 240,
       maxWidth: 320
     }
   }
