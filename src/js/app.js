@@ -286,9 +286,11 @@ var debug = function(message, e) {
   if(typeof(e)==='undefined') {
     e = null;
   }
+  else {
+    console.log(message, e);
+  }
   var $l = document.getElementById('debug');
   $l.innerHTML = $l.innerHTML + message +  ' \n';
-  console.log(message, e);
 };
 
 // fire !
