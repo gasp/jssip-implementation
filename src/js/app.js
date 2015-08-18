@@ -206,12 +206,13 @@ rtc.start = function (request_uid, rtc_uid) {
       console.log('local streams', call.connection.getLocalStreams());
       console.log('connection', call.connection);
 
-
       var selfView = JsSIP.rtcninja.attachMediaStream(document.getElementById('localVideo'), localStream);
-      //var selfView = JsSIP.rtcninja.attachMediaStream(feeds.local, localStream);
+      // this would display each feed in separate conversation for multiple conversations
+      var selfView = JsSIP.rtcninja.attachMediaStream(feeds.local, localStream);
       selfView.volume = 0;
 
       // TMP
+      console.log('window.localStream created');
       window.localStream = localStream;
     }
 
@@ -231,16 +232,10 @@ rtc.start = function (request_uid, rtc_uid) {
     console.log('addstream', e.stream);
     console.log(e.stream.getVideoTracks());
     console.log(e.stream.getAudioTracks());
-    var audioEl = document.querySelector('#remoteAudioElement');
-    var audioStream = e.stream;
-    console.log(audioEl, audioStream);
-    audioEl.src = window.URL.createObjectURL(audioStream);
-    audioEl.play();
 
-    // re activate for video stream
-    // var video = document.getElementById('remoteVideo');
-    // window.remoteStream = e.stream;
-    // video.src = window.URL.createObjectURL(e.stream);
+    var video = document.getElementById('remoteVideo');
+    window.remoteStream = e.stream;
+    video.src = window.URL.createObjectURL(e.stream);
 
 
 /*

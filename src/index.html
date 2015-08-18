@@ -47,8 +47,6 @@
               <li>empty</li>
             </ul>
             <hr>
-            <button type="button" class="btn btn-default" name="answer">answer</button>
-            <button type="button" name="button" class="btn btn-danger">hangup</button>
           </div>
           <div class="col-sm-10">
             <div class="ui-main">
@@ -62,11 +60,25 @@
     <section class="debug">
       <div class="container">
         <hr>
-        <p>
-          this might not work... seriously ?
-        </p>
+        <div class="row">
+          <div class="col-md-6">
+            <h2>remote</h2>
+            <video src="" autoplay="true" controls="controls" id="remoteVideo">
+            </video>
+          </div>
+          <div class="col-md-6">
+            <h2>local</h2>
+            <video src="" autoplay="true" controls="controls" id="localVideo" muted>
+            </video>
+          </div>
+        </div>
         <pre id="debug"></pre>
-        <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p>
+        <p>
+          <a href="javascript: delete localStorage.messages">delete messages history</a>
+        </p>
+        <p>
+          You should really use your headphones if you want to avoid larsen
+        </p>
     </div>
 
     </section>
