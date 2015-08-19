@@ -229,6 +229,7 @@ rtc.start = function (request_uid, rtc_uid) {
   });
 
   call.on('addstream', function(e) {
+
     console.log('addstream', e.stream);
     console.log(e.stream.getVideoTracks());
     console.log(e.stream.getAudioTracks());
@@ -236,6 +237,7 @@ rtc.start = function (request_uid, rtc_uid) {
     var video = document.getElementById('remoteVideo');
     window.remoteStream = e.stream;
     video.src = window.URL.createObjectURL(e.stream);
+    //remoteView = JsSIP.rtcninja.attachMediaStream(remoteView, remoteStream);
 
 
 /*
@@ -252,13 +254,6 @@ rtc.start = function (request_uid, rtc_uid) {
 
 };
 
-  call.on('addstream', function(e) {
-    console.log('Tryit: addstream()');
-    remoteStream = e.stream;
-    remoteView = JsSIP.rtcninja.attachMediaStream(remoteView, remoteStream);
-  });
-
-};
 
 var utils = {
   slugify: function (text) {
