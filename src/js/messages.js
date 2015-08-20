@@ -2,9 +2,9 @@
 // dependencies:
 // - conversation
 // - localStorage
-var messages = {};
+// - ui
+var messages = new Collection();
 
-messages.db = [];
 messages.add = function (m) {
   var uri = m.remote_identity.uri.toString();
   var uid = '';
@@ -43,12 +43,16 @@ messages.add = function (m) {
 };
 
 messages.list = function () {
+  var list = [];
   for (var i = 0; i < this.db.length; i++) {
     var str = i + '> ';
     for(var key in this.db[i]) {
       str = str + key + ': "' + this.db[i][key] + '", '
     }
+    list.push(str);
   }
+  console.log(list);
+  return list;
 };
 
 messages.save = function () {

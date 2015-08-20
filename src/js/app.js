@@ -60,9 +60,6 @@ ui.init();
 phone.start();
 messages.load();
 if(messages.db && messages.db.length > 0) {
-  conversations.rebuild();
+  conversations.rebuild(messages);
   ui.conversations();
-  setTimeout(function () {
-    messages.list();
-  }, 500);
 }

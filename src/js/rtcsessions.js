@@ -1,5 +1,5 @@
-var rtcSessions = {};
-rtcSessions.db = [];
+var rtcSessions = new Collection();
+
 // get RTCSession by rtcSessions.db[i].uid
 // @param: (string) yaddahyaddah
 // @return: (JsSIP RTCSession)

@@ -1,7 +1,7 @@
 // TODO what are requests
 
-var requests = {};
-requests.db = [];
+var requests = new Collection();
+
 // get requests by requests.db[i].uid
 // @param: (string) yaddahyaddah
 // @return: (JsSIP IncomingRequest)

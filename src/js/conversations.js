@@ -1,10 +1,9 @@
 // conversations are threads
 // dependencies:
-// - messages
-var conversations = {};
-conversations.db = [];
 
-conversations.rebuild = function () {
+var conversations = new Collection();
+
+conversations.rebuild = function (messages) {
   for (var i = 0; i < messages.db.length; i++) {
     var cid = conversations.find(messages.db[i].remote_uri);
     if(cid === false) {
