@@ -231,25 +231,14 @@ rtc.start = function (request_uid, rtc_uid) {
   call.on('addstream', function(e) {
 
     console.log('addstream', e.stream);
-    console.log(e.stream.getVideoTracks());
-    console.log(e.stream.getAudioTracks());
+    console.log('video', e.stream.getVideoTracks());
+    console.log('audio', e.stream.getAudioTracks());
 
     var video = document.getElementById('remoteVideo');
     window.remoteStream = e.stream;
     video.src = window.URL.createObjectURL(e.stream);
     //remoteView = JsSIP.rtcninja.attachMediaStream(remoteView, remoteStream);
 
-
-/*
-    if(e.stream.getVideoTracks() > 0) {
-      console.log('video', e);
-      JsSIP.rtcninja.attachMediaStream(document.getElementById('remoteVideo'), e.stream);
-    }
-    else if(e.stream.getAudioTracks() > 0) {
-      console.log('audio', e);
-      JsSIP.rtcninja.attachMediaStream(document.getElementById('remoteAudio'), e.stream);
-    }
-*/
   });
 
 };
