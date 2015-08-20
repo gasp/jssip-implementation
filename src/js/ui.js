@@ -150,7 +150,7 @@ var ui = {
           var request_uid = $(this).data('request');
           var rtc_uid = $(this).data('rtc');
           console.log(this, uri, request_uid, rtc_uid);
-          rtc.start(request_uid, rtc_uid);
+          rtcSessions.start(request_uid, rtc_uid);
           break;
         default:
       }

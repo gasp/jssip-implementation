@@ -23,7 +23,7 @@ phone.on('connected', function(e){
 phone.on('newRTCSession', function(e){
   debug('newRTCSession');
   console.log(e);
-  rtc.add(e);
+  rtcSessions.add(e);
 });
 
 phone.on('disconnected', function(e){
