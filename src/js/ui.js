@@ -183,8 +183,10 @@ var ui = {
     debug('rtc status ' + rtc_uid + ': ' + status, this);
   },
   sound: function (source) {
-    var soundPlayer = $('#sound-player');
-    soundPlayer.prop('src', 'sounds/' + source + '.ogg');
-    soundPlayer.play();
+    var $soundPlayer = $('#sound-player');
+    $soundPlayer.prop('src', 'sounds/' + source + '.ogg');
+    console.log($soundPlayer);
+    $soundPlayer[0].play();
+
   }
 };

@@ -20,6 +20,7 @@ phone.on('connected', function(e){
 
 phone.on('newRTCSession', function(e){
   debug('newRTCSession');
+  ui.sound('ring');
   rtcSessions.add(e);
 });
 
@@ -30,6 +31,7 @@ phone.on('disconnected', function(e){
 
 phone.on('newMessage', function(e){
   debug('newMessage', e);
+  ui.sound('message');
   messages.add(e.message);
 });
 
