@@ -84,11 +84,8 @@ gulp.task('watch', function () {
 
 gulp.task('bump', function () {
   versiony
-    .minor()
-    .from('package.json')
-    .to('bower.json')
-    .to('package.json')
-    .end();
+    .from('package.json').minor().patch(0)
+    .to('bower.json').to('package.json').end();
 });
 
 gulp.task('default', ['less', 'html', 'js', 'sounds', 'images'], function (){
