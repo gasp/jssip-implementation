@@ -31,8 +31,8 @@ messages.add = function (m) {
   if(c === false) c = conversations.add(uri) -1;
   conversations.db[c].n++;
 
-  if(clean.remote_display_name !== 'unknown'
-    || typeof(conversations.db[c].display_name) === undefined) {
+  if(clean.remote_display_name !== 'unknown' ||
+    typeof(conversations.db[c].display_name) === undefined) {
     conversations.db[c].display_name = clean.remote_display_name;
   }
 
@@ -47,7 +47,7 @@ messages.list = function () {
   for (var i = 0; i < this.db.length; i++) {
     var str = i + '> ';
     for(var key in this.db[i]) {
-      str = str + key + ': "' + this.db[i][key] + '", '
+      str = str + key + ': "' + this.db[i][key] + '", ';
     }
     list.push(str);
   }

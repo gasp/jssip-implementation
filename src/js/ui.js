@@ -1,5 +1,3 @@
-'use strict';
-
 var ui = {
   init: function () {
     var that = this;
@@ -18,35 +16,36 @@ var ui = {
   },
   state: function (status) {
     $('section.state').hide();
-    console.log('section.state-' + status)
+    console.log('section.state-' + status);
     $('section.state-' + status).show();
   },
   conversations: function () {
     var that = this;
     var $c = $('.ui-conversations').empty();
     var template = $('#template-ui-contact').html();
+    var show = function () {
+      that.show(c.uri);
+      // clear "n" and refresh
+    };
     for (var i = 0; i < conversations.db.length; i++) {
       var c = conversations.db[i];
       // if there is a display_name different than 'unknown'
       // use it
       var name = 'unknown';
       for (var j = messages.db.length - 1; j >= 0; j--) {
-        if (messages.db[j].remote_uri === c.uri
-          && messages.db[j].remote_display_name !== name) {
+        if (messages.db[j].remote_uri === c.uri &&
+          messages.db[j].remote_display_name !== name) {
           name = messages.db[j].remote_display_name;
           break;
         }
-      };
+      }
       var content = {
         slug: utils.slugify(c.uri),
         uri: c.uri,
         n: c.n,
         name: name
       };
-      var $li = $(_.template(template)(content)).on('click', function () {
-        that.show(c.uri);
-        // clear "n" and refresh
-      });
+      var $li = $(_.template(template)(content)).on('click', show);
       $c.append($li);
     }
     this.refresh();
@@ -85,7 +84,7 @@ var ui = {
           }
         }
       });
-      ev.preventDefault;
+      ev.preventDefault();
       return false;
     });
 
@@ -164,7 +163,7 @@ var ui = {
     return {
       local: $('.screens .local', $dialog)[0],
       remote: $('.screens .remote', $dialog)[0]
-    }
+    };
   },
   // call status
   callstatus: function (rtc_uid, status) {

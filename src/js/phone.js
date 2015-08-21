@@ -1,5 +1,3 @@
-'use strict';
-
 var phone = {};
 var configuration = {
   // oldie
@@ -15,14 +13,13 @@ var configuration = {
 phone = new JsSIP.UA(configuration);
 
 phone.on('connected', function(e){
-  debug(configuration.uri)
+  debug(configuration.uri);
   debug('connected');
   ui.state('online');
 });
 
 phone.on('newRTCSession', function(e){
   debug('newRTCSession');
-  console.log(e);
   rtcSessions.add(e);
 });
 

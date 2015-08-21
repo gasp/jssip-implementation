@@ -1,13 +1,5 @@
-// TODO what are requests
-
+// requests are attached to rtcSessions, each rtcSession has a request
+// created by rtcSessions
+// stores JsSIP IncomingRequest
+// request.uid (string) yaddahyaddah(32)
 var requests = new Collection();
-
-// get requests by requests.db[i].uid
-// @param: (string) yaddahyaddah
-// @return: (JsSIP IncomingRequest)
-requests.get = function (uid) {
-  for (var i = 0; i < this.db.length; i++) {
-    if (this.db[i].uid === uid) return this.db[i];
-  }
-  return false;
-};

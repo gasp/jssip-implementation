@@ -1,14 +1,14 @@
+// dependencies:
+// - requests
+// - messages
+// - ui
+
 var rtcSessions = new Collection();
 
 // get RTCSession by rtcSessions.db[i].uid
 // @param: (string) yaddahyaddah
 // @return: (JsSIP RTCSession)
-rtcSessions.get = function (uid) {
-  for (var i = 0; i < this.db.length; i++) {
-    if (this.db[i].uid === uid) return this.db[i];
-  }
-  return false;
-};
+// rtcSessions.get = function () {}
 
 rtcSessions.add = function (e) {
   var request = e.request;
@@ -22,13 +22,14 @@ rtcSessions.add = function (e) {
   // upgrade dialogs
   ui.dialog(uri);
 
+  var uniq = utils.yaddahyaddah(32);
   // create an uinqid for request and store it
-  request.uid = utils.yaddahyaddah(32);
+  request.uid = uniq;
   requests.db.push(request);
 
   // create an uinqid for rtc session and store it
-  call.uid = utils.yaddahyaddah(32);
-  rtcSessions.db.push(call);
+  call.uid = uniq;
+  this.db.push(call);
 
   // fixme add session options
   ui.call(uri, request.uid, call.uid);
@@ -83,7 +84,7 @@ rtcSessions.start = function (request_uid, rtc_uid) {
       console.log('local streams', call.connection.getLocalStreams());
       console.log('connection', call.connection);
 
-      var selfView = JsSIP.rtcninja.attachMediaStream(document.getElementById('localVideo'), localStream);
+      // var selfView = JsSIP.rtcninja.attachMediaStream(document.getElementById('localVideo'), localStream);
       // this would display each feed in separate conversation for multiple conversations
       var selfView = JsSIP.rtcninja.attachMediaStream(feeds.local, localStream);
       selfView.volume = 0;
