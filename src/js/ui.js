@@ -185,7 +185,6 @@ var ui = {
   sound: function (source) {
     var $soundPlayer = $('#sound-player');
     $soundPlayer.prop('src', 'sounds/' + source + '.ogg');
-    console.log($soundPlayer);
     $soundPlayer[0].play();
 
   }

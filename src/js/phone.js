@@ -30,9 +30,13 @@ phone.on('disconnected', function(e){
 });
 
 phone.on('newMessage', function(e){
+  if (e.originator === 'remote') {
+    ui.sound('message');
+  }
+  var uri = e.message.remote_identity.uri.toString();
   debug('newMessage', e);
-  ui.sound('message');
   messages.add(e.message);
+  ui.dialog(uri);
 });
 
 phone.on('registered', function(e){

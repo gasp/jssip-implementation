@@ -36,9 +36,7 @@ messages.add = function (m) {
     conversations.db[c].display_name = clean.remote_display_name;
   }
 
-  ui.conversations();
   messages.save();
-  // ui.panels
   messages.list();
 };
 
