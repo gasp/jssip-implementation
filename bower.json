@@ -1,21 +1,21 @@
 {
-  "name": "sip web client",
-  "version": "0.1.0",
-  "authors": [
-    "gaspard <gaspard@gmail.com>"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
-  "dependencies": {
-    "jssip": "~0.6.27",
-    "bootstrap": "3.x",
-    "jquery": "2.x",
-    "underscore": "latest"
-  }
+    "name": "jssip-integration",
+    "version": "0.1.1",
+    "authors": [
+        "gaspard <gaspard@gmail.com>"
+    ],
+    "license": "MIT",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ],
+    "dependencies": {
+        "jssip": "~0.6.27",
+        "bootstrap": "3.x",
+        "jquery": "2.x",
+        "underscore": "latest"
+    }
 }

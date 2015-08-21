@@ -5,6 +5,8 @@ var connect = require('gulp-connect');
 var less = require('gulp-less');
 var jasmine = require('gulp-jasmine');
 
+var versiony = require('versiony');
+
 gulp.task('tests', function () {
   return gulp.src('tests/*.js')
     .pipe(jasmine());
@@ -71,9 +73,19 @@ gulp.task('watch', function () {
   gulp.watch(['./src/**.html'], ['html']);
   gulp.watch(['./src/less/*.less'], ['less']);
   gulp.watch(['./src/js/*.js'], ['js']);
-  gulp.watch(['./src/images/*'], ['images'])
+  gulp.watch(['./src/images/*'], ['images']);
 });
 
-gulp.task('default', ['less', 'html', 'js', 'images'], function(){
+gulp.task('bump', function () {
+  versiony
+    .minor()
+    .from('package.json')
+    .to('bower.json')
+    .to('package.json')
+    .end();
+});
 
+gulp.task('default', ['less', 'html', 'js', 'images'], function (){
+  versiony.from('package.json').patch()
+    .to('bower.json').to('package.json').end();
 });
