@@ -20,8 +20,12 @@ phone.on('connected', function(e){
 
 phone.on('newRTCSession', function(e){
   debug('newRTCSession');
+  if (e.originator === 'local') {
+    return false;
+  }
   ui.sound('ring');
   rtcSessions.add(e);
+  ui.conversations();
 });
 
 phone.on('disconnected', function(e){
@@ -37,6 +41,7 @@ phone.on('newMessage', function(e){
   debug('newMessage', e);
   messages.add(e.message);
   ui.dialog(uri);
+  ui.conversations();
 });
 
 phone.on('registered', function(e){
@@ -47,4 +52,5 @@ phone.on('unregistered', function(e){
 });
 phone.on('registrationFailed', function(e){
   debug('registrationFailed');
+  ui.state('offline');
 });

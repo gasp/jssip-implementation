@@ -1,7 +1,6 @@
 var ui = {
   init: function () {
-    var that = this;
-    that.state('offline');
+    this.state('offline');
     $('section.state-offline button[name=connect]').on('click', function () {
       ui.connect();
     });
@@ -19,6 +18,7 @@ var ui = {
     console.log('section.state-' + status);
     $('section.state-' + status).show();
   },
+  // update the conversation view
   conversations: function () {
     var that = this;
     var $c = $('.ui-conversations').empty();

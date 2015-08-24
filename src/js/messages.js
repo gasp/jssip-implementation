@@ -49,7 +49,6 @@ messages.list = function () {
     }
     list.push(str);
   }
-  console.log(list);
   return list;
 };
 
