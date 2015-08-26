@@ -4,6 +4,7 @@ var ui = {
     $('section.state-offline button[name=connect]').on('click', function () {
       ui.connect();
     });
+    this.toolbars();
     this.refresh();
   },
   refresh: function () {
@@ -182,10 +183,100 @@ var ui = {
     }
     debug('rtc status ' + rtc_uid + ': ' + status, this);
   },
+  toolbars: function () {
+    // stop getting sound from remote
+    function mute() {
+      // whatever.getAudioTracks()[0].enabled = false;
+    }
+    // restart getting sound from remote
+    function unmute() {
+      // whatever.getAudioTracks()[0].enabled = true;
+    }
+    // stop getting video from remote
+    function hide() {
+      // whatever.getVideoTracks()[0].enabled = false;
+    }
+    // restart getting sound from remote
+    function unhide() {
+      // whatever.getVideoTracks()[0].enabled = true;
+    }
+    // stop sending sound to remote
+    function deafen() {
+      tempLocalStream[0].getAudioTracks()[0].enabled = false;
+    }
+    // restart sending sound to remote
+    function undeafen() {
+      tempLocalStream[0].getAudioTracks()[0].enabled = true;
+    }
+    // stop sending video to remote
+    function blind() {
+      tempLocalStream[0].getVideoTracks()[0].enabled = false;
+    }
+    // restart sending video to remote
+    function unblind() {
+      tempLocalStream[0].getVideoTracks()[0].enabled = true;
+    }
+
+    var $toolbars = $('.toolbar');
+    var $remote = $('.toolbar').hasClass('toolbar-remote');
+    var $local = $('.toolbar').hasClass('toolbar-local');
+    // hide all unused buttons
+
+    // remote actions
+    $('.btn-mute', $toolbars).on('click', function (ev) {
+      mute();
+      $(this).addClass('btn-alt');
+      $('.btn-unmute', $toolbars).removeClass('btn-alt');
+      ev.preventDefault();
+    });
+    $('.btn-unmute', $toolbars).on('click', function (ev) {
+      unmute();
+      $(this).addClass('btn-alt');
+      $('.btn-mute', $toolbars).removeClass('btn-alt');
+      ev.preventDefault();
+    });
+    $('.btn-hide', $toolbars).on('click', function (ev) {
+      hide();
+      $(this).addClass('btn-alt');
+      $('.btn-unhide', $toolbars).removeClass('btn-alt');
+      ev.preventDefault();
+    });
+    $('.btn-unhide', $toolbars).on('click', function (ev) {
+      unhide();
+      $(this).addClass('btn-alt');
+      $('.btn-hide', $toolbars).removeClass('btn-alt');
+      ev.preventDefault();
+    });
+    // local actions
+    $('.btn-deafen', $toolbars).on('click', function (ev) {
+      deafen();
+      $(this).addClass('btn-alt');
+      $('.btn-undeafen', $toolbars).removeClass('btn-alt');
+      ev.preventDefault();
+    });
+    $('.btn-undeafen', $toolbars).on('click', function (ev) {
+      undeafen();
+      $(this).addClass('btn-alt');
+      $('.btn-deafen', $toolbars).removeClass('btn-alt');
+      ev.preventDefault();
+    });
+    $('.btn-blind', $toolbars).on('click', function (ev) {
+      blind();
+      $(this).addClass('btn-alt');
+      $('.btn-unblind', $toolbars).removeClass('btn-alt');
+      ev.preventDefault();
+    });
+    $('.btn-unblind', $toolbars).on('click', function (ev) {
+      unblind();
+      $(this).addClass('btn-alt');
+      $('.btn-blind', $toolbars).removeClass('btn-alt');
+      ev.preventDefault();
+    });
+
+  },
   sound: function (source) {
     var $soundPlayer = $('#sound-player');
     $soundPlayer.prop('src', 'sounds/' + source + '.ogg');
     $soundPlayer[0].play();
-
   }
 };

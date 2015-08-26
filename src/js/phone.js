@@ -20,6 +20,7 @@ phone.on('connected', function(e){
 
 phone.on('newRTCSession', function(e){
   debug('newRTCSession');
+  console.log(e);
   if (e.originator === 'local') {
     return false;
   }

@@ -65,11 +65,25 @@
             <h2>remote</h2>
             <video src="" autoplay="true" controls="controls" id="remoteVideo">
             </video>
+            <div class="toolbar toolbar-remote">
+              <a class="btn btn-default btn-mute" href="#"><i class="glyphicon glyphicon-music"></i> mute (don't listen)</a>
+              <a class="btn btn-default btn-unmute btn-alt" href="#"><i class="glyphicon glyphicon-music"></i> unmute</a>
+              <a class="btn btn-default btn-hide" href="#"><i class="glyphicon glyphicon-eye-close"> hide (don't view)</i></a>
+              <a class="btn btn-default btn-unhide btn-alt" href="#"><i class="glyphicon glyphicon-eye-close"> unhide (show the camera feed)</i></a>
+            </div>
           </div>
           <div class="col-md-6">
             <h2>local</h2>
             <video src="" autoplay="true" controls="controls" id="localVideo" muted>
             </video>
+            <div class="toolbar toolbar-local">
+              <a class="btn btn-default btn-deafen" href="#"><i class="glyphicon glyphicon-music"></i> deafen (cut microphone)</a>
+              <a class="btn btn-default btn-undeafen btn-alt" href="#"><i class="glyphicon glyphicon-music"></i> undeafen (restore microphone)</a>
+              <a class="btn btn-default btn-blind" href="#"><i class="glyphicon glyphicon-eye-close"> blind (cut camera)</i></a>
+              <a class="btn btn-default btn-unblind btn-alt" href="#"><i class="glyphicon glyphicon-eye-close"> unblind (cut camera)</i></a>
+              <a class="btn btn-default btn-hold disabled" href="#">hold call (cut all and play some stupid music)</a>
+              <a class="btn btn-default btn-unhold btn-alt" href="#">unhold call (resume all)</a>
+            </div>
           </div>
         </div>
         <pre id="debug"></pre>

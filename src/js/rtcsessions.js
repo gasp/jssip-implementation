@@ -1,7 +1,10 @@
 // dependencies:
 // - requests
 // - messages
+// -streams
 // - ui
+// TODO this may has a flaw,
+// what if we engaged with several sessions with the same remote_identity.uri ?
 
 var rtcSessions = new Collection();
 
@@ -14,7 +17,8 @@ rtcSessions.add = function (e) {
   var request = e.request;
   var call = e.session;
   var uri = call.remote_identity.uri.toString();
-  console.log(request, call, uri)
+  console.log(request, call, uri);
+  window.currentRTCSession = this;
 
   // create a conversation
   call.content = call.content || 'calling...';
@@ -83,6 +87,7 @@ rtcSessions.start = function (request_uid, rtc_uid) {
       var localStream = call.connection.getLocalStreams()[0];
       console.log('local streams', call.connection.getLocalStreams());
       console.log('connection', call.connection);
+      window.tempLocalStream = call.connection.getLocalStreams();
 
       // this would display each feed in separate conversation for multiple conversations
       // var selfView = JsSIP.rtcninja.attachMediaStream(feeds.local, localStream);
