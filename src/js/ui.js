@@ -4,7 +4,6 @@ var ui = {
     $('section.state-offline button[name=connect]').on('click', function () {
       ui.connect();
     });
-    this.toolbars();
     this.refresh();
   },
   refresh: function () {
@@ -12,7 +11,6 @@ var ui = {
   },
   connect: function() {
     phone.start();
-    this.state('online');
   },
   state: function (status) {
     $('section.state').hide();

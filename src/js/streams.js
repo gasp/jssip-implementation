@@ -6,4 +6,18 @@ var streams = new Collection();
 
 // stream have uid (str) yaddahyaddah
 // rtcSession_uri (str) URI
-// type (string) local, remote
+// originator (string) local, remote
+
+
+// get stream tracks with
+// getAudioTracks()[0] and getVideoTracks()[0]
+
+streams.getByRtcSession = function (rtcsession_uid) {
+  var results = [];
+  for (var i = 0; i < this.db.length; i++) {
+    if (this.db[i].rtcsession_uid === rtcsession_uid) {
+      results.push(this.db[i]);
+    }
+  }
+  return results;
+};

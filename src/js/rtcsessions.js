@@ -29,7 +29,7 @@ rtcSessions.add = function (e) {
   var uniq = utils.yaddahyaddah(32);
   // create an uinqid for request and store it
   request.uid = uniq;
-  requests.db.push(request);
+  requests.add(request);
 
   // create an uinqid for rtc session and store it
   call.uid = uniq;
@@ -89,6 +89,11 @@ rtcSessions.start = function (request_uid, rtc_uid) {
       console.log('connection', call.connection);
       window.tempLocalStream = call.connection.getLocalStreams();
 
+      localStream.uid = utils.yaddahyaddah();
+      localStream.originator = 'local';
+      localStream.rtcsession_uid = call.uid;
+      streams.add(localStream);
+
       // this would display each feed in separate conversation for multiple conversations
       // var selfView = JsSIP.rtcninja.attachMediaStream(feeds.local, localStream);
       var selfView = JsSIP.rtcninja.attachMediaStream(document.getElementById('localVideo'), localStream);
@@ -117,7 +122,14 @@ rtcSessions.start = function (request_uid, rtc_uid) {
     console.log('video', e.stream.getVideoTracks());
     console.log('audio', e.stream.getAudioTracks());
 
-    var video = document.getElementById('remoteVideo');
+    var remoteStream = e.stream;
+    remoteStream.uid = utils.yaddahyaddah();
+    remoteStream.originator = 'remote';
+    remoteStream.rtcsession_uid = call.uid;
+    streams.add(remoteStream);
+
+
+    var video = $('video', $(feeds.remote)).get(0);
     window.remoteStream = e.stream;
     video.src = window.URL.createObjectURL(e.stream);
     //remoteView = JsSIP.rtcninja.attachMediaStream(remoteView, remoteStream);
