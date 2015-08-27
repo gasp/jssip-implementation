@@ -181,7 +181,7 @@ var ui = {
     }
     debug('rtc status ' + rtc_uid + ': ' + status, this);
   },
-  toolbars: function () {
+  toolbars: function (rtc_uid) {
     // stop getting sound from remote
     function mute() {
       // whatever.getAudioTracks()[0].enabled = false;
@@ -215,7 +215,8 @@ var ui = {
       tempLocalStream[0].getVideoTracks()[0].enabled = true;
     }
 
-    var $toolbars = $('.toolbar');
+    var $dialog = $('.ui-main div#call_' + rtc_uid);
+    var $toolbars = $('.toolbar', $dialog);
     var $remote = $('.toolbar').hasClass('toolbar-remote');
     var $local = $('.toolbar').hasClass('toolbar-local');
     // hide all unused buttons

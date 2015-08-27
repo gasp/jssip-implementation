@@ -96,7 +96,8 @@ rtcSessions.start = function (request_uid, rtc_uid) {
 
       // this would display each feed in separate conversation for multiple conversations
       // var selfView = JsSIP.rtcninja.attachMediaStream(feeds.local, localStream);
-      var selfView = JsSIP.rtcninja.attachMediaStream(document.getElementById('localVideo'), localStream);
+      var video = $('video', $(feeds.local)).get(0);
+      var selfView = JsSIP.rtcninja.attachMediaStream(video, localStream);
       selfView.volume = 0;
 
       // TMP
