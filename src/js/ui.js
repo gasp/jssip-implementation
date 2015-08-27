@@ -147,6 +147,9 @@ var ui = {
         case 'call-accept':
           var request_uid = $(this).data('request');
           var rtc_uid = $(this).data('rtc');
+          // show screens
+          $('.screens','#call_' + rtc_uid).show();
+
           console.log(this, uri, request_uid, rtc_uid);
           rtcSessions.start(request_uid, rtc_uid);
           break;
@@ -220,6 +223,15 @@ var ui = {
     var $remote = $('.toolbar').hasClass('toolbar-remote');
     var $local = $('.toolbar').hasClass('toolbar-local');
     // hide all unused buttons
+
+
+    $('.btn', $toolbars).on('click', function (ev) {
+      console.log('clicked');
+      console.log(this);
+      console.log($toolbars);
+      console.log($dialog);
+      ev.preventDefault();
+    });
 
     // remote actions
     $('.btn-mute', $toolbars).on('click', function (ev) {

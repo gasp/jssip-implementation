@@ -155,19 +155,27 @@
       <div class="ui-rtc" id="call_<%= rtc_uid %>">
         <div class="screens row">
           <div class="local col-sm-6">
-            <video autoplay muted="true" poster="images/green.png">
+            <div class="video-about">
+              Local
+            </div>
+            <video autoplay muted="true" poster="images/green.png"
+              autoplay="true" controls="controls" muted>
             </video>
             <div class="toolbar toolbar-local">
               <a class="btn btn-default btn-deafen" href="#"><i class="glyphicon glyphicon-music"></i> deafen (cut microphone)</a>
               <a class="btn btn-default btn-undeafen btn-alt" href="#"><i class="glyphicon glyphicon-music"></i> undeafen (restore microphone)</a>
               <a class="btn btn-default btn-blind" href="#"><i class="glyphicon glyphicon-eye-close"> blind (cut camera)</i></a>
-              <a class="btn btn-default btn-unblind btn-alt" href="#"><i class="glyphicon glyphicon-eye-close"> unblind (cut camera)</i></a>
+              <a class="btn btn-default btn-unblind btn-alt" href="#"><i class="glyphicon glyphicon-eye-open"> unblind (cut camera)</i></a>
               <a class="btn btn-default btn-hold disabled" href="#">hold call (cut all and play some stupid music)</a>
               <a class="btn btn-default btn-unhold btn-alt" href="#">unhold call (resume all)</a>
             </div>
           </div>
           <div class="remote col-sm-6">
-            <video autoplay poster="images/green.png">
+            <div class="video-about">
+              Remote
+            </div>
+            <video autoplay poster="images/green.png"
+              autoplay="true" controls="controls" >
             </video>
             <div class="toolbar toolbar-remote">
               <a class="btn btn-default btn-mute" href="#"><i class="glyphicon glyphicon-music"></i> mute (don't listen)</a>
@@ -179,7 +187,10 @@
         </div>
         <div class="controls">
           <button type="button" data-uri="<%= uri %>" class="btn btn-default" name="call-make" disabled="disabled">make a call</button>
-          <button type="button" data-uri="<%= uri %>" data-request="<%= request_uid %>" data-rtc="<%= rtc_uid %>" class="btn btn-default" name="call-accept">accept a call (pick up)</button>
+          <button type="button" data-uri="<%= uri %>" data-request="<%= request_uid %>" data-rtc="<%= rtc_uid %>" class="btn btn-default" name="call-accept">
+            <i class="glyphicon glyphicon-earphone"></i>
+            accept a call (pick up)
+          </button>
           <button type="button" data-uri="<%= uri %>" class="btn btn-default" name="call-reject" disabled="disabled">reject a call</button>
           <button type="button" data-uri="<%= uri %>" class="btn btn-default" name="call-terminate" disabled="disabled">terminate a call (hang up)</button>
         </div>
