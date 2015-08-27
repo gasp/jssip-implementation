@@ -45,6 +45,7 @@ rtcSessions.start = function (request_uid, rtc_uid) {
   var feeds = ui.feeds(rtc_uid);
   ui.toolbars(rtc_uid);
 
+  console.log('+++++++++ new call');
   console.log('direction', call.direction);
   console.log('isInProgress', call.isInProgress());
   console.log('isEstablished', call.isEstablished());

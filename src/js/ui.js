@@ -149,8 +149,6 @@ var ui = {
           var rtc_uid = $(this).data('rtc');
           // show screens
           $('.screens','#call_' + rtc_uid).show();
-
-          console.log(this, uri, request_uid, rtc_uid);
           rtcSessions.start(request_uid, rtc_uid);
           break;
         default:
@@ -160,7 +158,6 @@ var ui = {
   // get video feeds
   feeds: function (rtc_uid) {
     var $dialog = $('.ui-main div#call_' + rtc_uid);
-    console.log(rtc_uid, $dialog, $('.screens .local', $dialog));
     // return HTML DOM Objects
     return {
       local: $('.screens .local', $dialog)[0],
@@ -187,51 +184,51 @@ var ui = {
   toolbars: function (rtc_uid) {
     // stop getting sound from remote
     function mute() {
-      // whatever.getAudioTracks()[0].enabled = false;
+      getStream(rtc_uid, 'remote').getAudioTracks()[0].enabled = false;
     }
     // restart getting sound from remote
     function unmute() {
-      // whatever.getAudioTracks()[0].enabled = true;
+      getStream(rtc_uid, 'remote').getAudioTracks()[0].enabled = true;
     }
     // stop getting video from remote
     function hide() {
-      // whatever.getVideoTracks()[0].enabled = false;
+      getStream(rtc_uid, 'remote').getVideoTracks()[0].enabled = false;
     }
     // restart getting sound from remote
     function unhide() {
-      // whatever.getVideoTracks()[0].enabled = true;
+      getStream(rtc_uid, 'remote').getVideoTracks()[0].enabled = true;
     }
     // stop sending sound to remote
     function deafen() {
-      tempLocalStream[0].getAudioTracks()[0].enabled = false;
+      getStream(rtc_uid, 'local').getAudioTracks()[0].enabled = false;
     }
     // restart sending sound to remote
     function undeafen() {
-      tempLocalStream[0].getAudioTracks()[0].enabled = true;
+      getStream(rtc_uid, 'local').getAudioTracks()[0].enabled = true;
     }
     // stop sending video to remote
     function blind() {
-      tempLocalStream[0].getVideoTracks()[0].enabled = false;
+      getStream(rtc_uid, 'local').getVideoTracks()[0].enabled = false;
     }
     // restart sending video to remote
     function unblind() {
-      tempLocalStream[0].getVideoTracks()[0].enabled = true;
+      getStream(rtc_uid, 'local').getVideoTracks()[0].enabled = true;
+    }
+
+    // get first stream from rtc_uid and origin
+    function getStream(rtc_uid, originator) {
+      var selectedStreams = streams.getByRtcSession(rtc_uid);
+      for (var i = 0; i < selectedStreams.length; i++) {
+        if (selectedStreams[i].originator === originator) {
+          return selectedStreams[i];
+        }
+      }
     }
 
     var $dialog = $('.ui-main div#call_' + rtc_uid);
     var $toolbars = $('.toolbar', $dialog);
     var $remote = $('.toolbar').hasClass('toolbar-remote');
     var $local = $('.toolbar').hasClass('toolbar-local');
-    // hide all unused buttons
-
-
-    $('.btn', $toolbars).on('click', function (ev) {
-      console.log('clicked');
-      console.log(this);
-      console.log($toolbars);
-      console.log($dialog);
-      ev.preventDefault();
-    });
 
     // remote actions
     $('.btn-mute', $toolbars).on('click', function (ev) {
