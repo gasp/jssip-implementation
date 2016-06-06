@@ -24,7 +24,7 @@ config.constraints = {
 
 // fire !
 ui.init();
-phone.start();
+phone.init();
 messages.load();
 if(messages.db && messages.db.length > 0) {
   conversations.rebuild(messages);
