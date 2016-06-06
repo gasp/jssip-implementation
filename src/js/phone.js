@@ -9,6 +9,7 @@ var configuration = {
   'uri': 'sip:102@sip.bvcs.fr',
   'password': 'videodesk102gaspard',
 };
+JsSIP.debug.enable('JsSIP:*');
 
 phone.init = function () {
   phone = new JsSIP.UA(configuration);
