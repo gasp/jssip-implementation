@@ -89,6 +89,5 @@ gulp.task('bump', function () {
 });
 
 gulp.task('default', ['less', 'html', 'js', 'sounds', 'images'], function (){
-  versiony.from('package.json').patch()
-    .to('bower.json').to('package.json').end();
+
 });
